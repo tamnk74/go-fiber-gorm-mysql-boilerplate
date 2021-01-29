@@ -1,0 +1,14 @@
+[
+  {
+    "name": "admin",
+    "email": "super_admin@mailinator.com",
+    "password": "admin123",
+    "status": 1
+  },
+  {
+    "name": "guest",
+    "email": "guest@mailinator.com",
+    "password": "admin123",
+    "status": 1
+  }
+]

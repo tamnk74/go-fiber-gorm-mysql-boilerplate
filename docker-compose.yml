@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+  elasticsearch:
+    image: elasticsearch:7.7.0
+    container_name: elasticsearch
+    hostname: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - go_app
+  redis:
+    image: redis:alpine
+    container_name: redis
+    privileged: true
+    ports:
+      - 6379:6379
+    networks:
+      - go_app
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - go_app
+networks:
+    go_app:
+        driver: bridge

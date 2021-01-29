@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Nodejs",
+    "description": "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine."
+  },
+  {
+    "name": "Javascript",
+    "description": "JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification. JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions. "
+  },
+  {
+    "name": "Golang",
+    "description": "Go is a statically typed, compiled programming language designed at Google by Robert Griesemer, Rob Pike, and Ken Thompson. Go is syntactically similar to C, but with memory safety, garbage collection, structural typing, and CSP-style concurrency."
+  },
+  {
+    "name": "HTML",
+    "description": "Hypertext Markup Language is the standard markup language for documents designed to be displayed in a web browser. It can be assisted by technologies such as Cascading Style Sheets and scripting languages such as JavaScript."
+  },
+  {
+    "name": "CSS",
+    "description": "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML. CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript."
+  },
+  {
+    "name": "Design pattern",
+    "description": "In software engineering, a software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code."
+  },
+  {
+    "name": "Mysql",
+    "description": "MySQL is an open-source relational database management system."
+  }
+]
