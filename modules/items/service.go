@@ -6,26 +6,19 @@ import (
 	"github.com/tamnk74/todolist-mysql-go/repository"
 )
 
-type ItemService interface {
+type IItemService interface {
 	ListItems(pagi *dto.Pagination) ([]models.Item, error)
 	CreateItem(item models.Item) (models.Item, error)
 }
 
-type itemService struct {
-	itemRepo repository.ItemRepository
+type ItemService struct {
+	itemRepo repository.IItemRepository
 }
 
-// NewItemService will create new an item object representation of models.Item interface
-func NewItemService(repo repository.ItemRepository) ItemService {
-	return &itemService{
-		itemRepo: repo,
-	}
-}
-
-func (a *itemService) ListItems(pagi *dto.Pagination) (res []models.Item, err error) {
+func (a *ItemService) ListItems(pagi *dto.Pagination) (res []models.Item, err error) {
 	return a.itemRepo.ListItems(pagi)
 }
 
-func (a *itemService) CreateItem(item models.Item) (res models.Item, err error) {
+func (a *ItemService) CreateItem(item models.Item) (res models.Item, err error) {
 	return a.itemRepo.CreateItem(item)
 }

@@ -1,2 +1,4 @@
 .env
 __debug_bin
+
+*.exe

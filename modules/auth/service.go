@@ -13,25 +13,17 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type AuthService interface {
+type IAuthService interface {
 	Login(email string, password string) (token string, err error)
 	CreateUser(user models.User) (usr models.User, err error)
 	GetUser(user *models.User) error
 }
 
-type Auth struct {
-	authRepo repository.AuthRepository
+type AuthService struct {
+	authRepo repository.IAuthRepository
 }
 
-func NewAuthService() AuthService {
-	authRepo := repository.NewAuthRepository()
-	return &Auth{
-		authRepo: authRepo,
-	}
-
-}
-
-func (a *Auth) Login(email string, password string) (token string, err error) {
+func (a *AuthService) Login(email string, password string) (token string, err error) {
 	user, err := a.authRepo.FindUserByEmail(email)
 	if err != nil || user.Status == constants.STATUS.INACTIVE {
 		return "", errors.New("Invalid email")
@@ -47,10 +39,10 @@ func (a *Auth) Login(email string, password string) (token string, err error) {
 	return token, nil
 }
 
-func (a *Auth) CreateUser(user models.User) (usr models.User, err error) {
+func (a *AuthService) CreateUser(user models.User) (usr models.User, err error) {
 	return a.authRepo.Create(user)
 }
 
-func (a *Auth) GetUser(user *models.User) error {
+func (a *AuthService) GetUser(user *models.User) error {
 	return a.authRepo.FindByPk(user)
 }

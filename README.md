@@ -4,6 +4,16 @@
 
 > go.mod
 
+# Set up
+
+```
+$ go run cmd/database/migrate.go 
+
+$ go run cmd/database/migrate.go seed users
+
+$ go run cmd/database/migrate.go seed items
+```
+
 # Features
 
 # Start 

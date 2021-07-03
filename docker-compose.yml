@@ -1,5 +1,36 @@
 version: "3.3"
 services:
+  goapi:
+    build: "."
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - mysql
+      - redis
+      # - rabbitmq
+    links:
+      - mysql
+      - redis
+      # - rabbitmq
+    networks:
+      - go_app
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    hostname: mysql
+    environment:
+      - MYSQL_DATABASE=go_api
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=user
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+    volumes:
+      - '~/.docker/data/mysql:/var/lib/mysql'
+    networks:
+      - go_app
   elasticsearch:
     image: elasticsearch:7.7.0
     container_name: elasticsearch
@@ -17,6 +48,8 @@ services:
     privileged: true
     ports:
       - 6379:6379
+    volumes:
+      - ~/.docker/data/redis:/data
     networks:
       - go_app
   mongodb:
@@ -25,6 +58,20 @@ services:
     hostname: mongo
     ports:
       - 27017:27017
+    networks:
+      - go_app
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    # hostname: rabbitmq
+    ports:
+      # Management port
+      - "15672:15672"
+      # Service port
+      - "5672:5672"
+    expose:
+      - "15672"
+      - "5672"
     networks:
       - go_app
 networks:

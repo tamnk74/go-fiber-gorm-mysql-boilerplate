@@ -5,28 +5,18 @@ import (
 	"github.com/tamnk74/todolist-mysql-go/dto"
 	"github.com/tamnk74/todolist-mysql-go/middlewares"
 	"github.com/tamnk74/todolist-mysql-go/models"
-	"github.com/tamnk74/todolist-mysql-go/repository"
 )
 
-type ItemController interface {
+type ItemController struct {
+	itemService IItemService
+}
+
+type IItemController interface {
 	listItems(ctx *fiber.Ctx) error
 	createItem(ctx *fiber.Ctx) error
 }
 
-type itemController struct {
-	itemService ItemService
-}
-
-func NewItemController() ItemController {
-	itemRepo := repository.NewItemRepository()
-	itemService := NewItemService(itemRepo)
-	return &itemController{
-		itemService: itemService,
-	}
-
-}
-
-func (a *itemController) listItems(c *fiber.Ctx) error {
+func (a *ItemController) listItems(c *fiber.Ctx) error {
 	pagi := new(dto.Pagination)
 	if err := c.QueryParser(pagi); err != nil {
 		return err
@@ -44,8 +34,8 @@ func (a *itemController) listItems(c *fiber.Ctx) error {
 	})
 }
 
-func (a *itemController) createItem(c *fiber.Ctx) error {
-	var form CreateItem
+func (a *ItemController) createItem(c *fiber.Ctx) error {
+	var form CreateItemSchema
 	if err := c.BodyParser(&form); err != nil {
 		return err
 	}

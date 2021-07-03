@@ -9,26 +9,18 @@ import (
 	"github.com/tamnk74/todolist-mysql-go/utils/queue"
 )
 
-//login contorller interface
-type AuthController interface {
+type AuthController struct {
+	authService IAuthService
+}
+
+type IAuthController interface {
 	login(ctx *fiber.Ctx) error
 	register(ctx *fiber.Ctx) error
 	getUser(ctx *fiber.Ctx) error
 }
 
-type authController struct {
-	authService AuthService
-}
-
-func NewAuthController() AuthController {
-	authService := NewAuthService()
-	return &authController{
-		authService: authService,
-	}
-}
-
-func (a *authController) login(c *fiber.Ctx) error {
-	var form Login
+func (a *AuthController) login(c *fiber.Ctx) error {
+	var form LoginSchema
 	if err := c.BodyParser(&form); err != nil {
 		return err
 	}
@@ -44,7 +36,7 @@ func (a *authController) login(c *fiber.Ctx) error {
 	})
 }
 
-func (a *authController) getUser(c *fiber.Ctx) error {
+func (a *AuthController) getUser(c *fiber.Ctx) error {
 	user := c.Locals("user").(models.User)
 	err := a.authService.GetUser(&user)
 	if err != nil {
@@ -55,8 +47,8 @@ func (a *authController) getUser(c *fiber.Ctx) error {
 	})
 }
 
-func (a *authController) register(c *fiber.Ctx) error {
-	var form Register
+func (a *AuthController) register(c *fiber.Ctx) error {
+	var form RegisterSchema
 	if err := c.BodyParser(&form); err != nil {
 		return err
 	}
