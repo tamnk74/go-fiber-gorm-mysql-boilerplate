@@ -20,6 +20,8 @@ $ go run cmd/database/migrate.go seed items
 
 > go run main.go
 
+# Database
+
 # Migration
  
  * Before run migration you need to create a database first
